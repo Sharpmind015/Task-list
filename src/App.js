@@ -45,7 +45,7 @@ class App extends Component {
         completed: false
       }
     ],
-    status: "completed"
+    status: "all"
   };
 
   handleSubmit = task => {
