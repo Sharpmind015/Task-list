@@ -6,7 +6,7 @@ class Tasks extends Component {
     const { tasks, onComplete, onDelete } = this.props;
     return (
       <ul>
-        {tasks.map((task, index) => (
+        {tasks.reverse().map((task, index) => (
           <li key={index}>
             {!task.task ? (
               <React.Fragment>

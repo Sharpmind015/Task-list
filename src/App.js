@@ -2,6 +2,21 @@ import React, { Component } from "react";
 import Task from "./Component/Task/Task";
 import Form from "./Component/Form/Form";
 
+const STATUS = [
+  {
+    name: "all",
+    filtered: () => true
+  },
+  {
+    name: "completed",
+    filtered: task => task.completed
+  },
+  {
+    name: "uncompleted",
+    filtered: task => !task.completed
+  }
+];
+
 class App extends Component {
   state = {
     tasks: [
@@ -30,7 +45,7 @@ class App extends Component {
         completed: false
       }
     ],
-    status: "all"
+    status: "completed"
   };
 
   handleSubmit = task => {
@@ -47,51 +62,26 @@ class App extends Component {
     const tasks = this.state.tasks.filter(entry => entry !== task);
     this.setState({ tasks });
   };
-  handleStatusCheck = entry => {
-    return this.state.status === entry ? "active" : "";
-  };
   render() {
-    const all = [...this.state.tasks.reverse()];
-    const filteredTask = all.filter(task => task.task);
-    const completed = filteredTask.filter(task => task.completed);
-    const uncompleted = filteredTask.filter(task => !task.completed);
-    let tasks;
-    if (this.state.status === "completed") {
-      tasks = completed;
-    } else if (this.state.status === "uncompleted") {
-      tasks = uncompleted;
-    } else {
-      tasks = all;
-    }
+    const filtered = STATUS.filter(entry => this.state.status === entry.name);
+    const tasks = this.state.tasks.filter(filtered[0].filtered);
     return (
       <div className="container">
         <Form tasks={this.state.tasks} onSubmit={this.handleSubmit} />
         <h2 className="mt">TASKS</h2>
         <div className="center">
-          <button
-            className={this.handleStatusCheck("all")}
-            onClick={e => {
-              this.setState({ status: "all" });
-            }}
-          >
-            All: {this.state.tasks.length}
-          </button>{" "}
-          <button
-            className={this.handleStatusCheck("completed")}
-            onClick={() => {
-              this.setState({ status: "completed" });
-            }}
-          >
-            Completed: {completed.length}
-          </button>{" "}
-          <button
-            className={this.handleStatusCheck("uncompleted")}
-            onClick={() => {
-              this.setState({ status: "uncompleted" });
-            }}
-          >
-            Uncompleted: {uncompleted.length}
-          </button>{" "}
+          {STATUS.map(data => (
+            <button
+              key={data.name}
+              className={this.state.status === data.name ? "active" : ""}
+              onClick={() => {
+                this.setState({ status: data.name });
+              }}
+            >
+              {data.name.toLocaleUpperCase()}:{" "}
+              {this.state.tasks.filter(data.filtered).length}
+            </button>
+          ))}
         </div>
         <Task
           tasks={tasks}

@@ -82,6 +82,7 @@ li {
 button {
   padding: 0.4rem;
   border: none;
+  margin-left: 0.3rem;
 }
 button:focus {
   outline: none;
