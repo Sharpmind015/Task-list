@@ -1,0 +1,23 @@
+.fa {
+  margin: 1rem 0 0 1rem;
+  cursor: pointer;
+}
+.fa-check,
+.fa-trash {
+  background-color: var(---primary-color);
+  border-radius: 50%;
+  padding: 0.6rem 0.4rem;
+  color: #fff;
+}
+.fa-check {
+  right: 30px;
+}
+.fa-trash {
+  right: 100px;
+}
+.fa-check.clicked {
+  color: var(---dark-color);
+}
+.empty {
+  opacity: 0.3;
+}
