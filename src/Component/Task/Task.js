@@ -4,6 +4,14 @@ import "./task.css";
 class Tasks extends Component {
   render() {
     const { tasks, onComplete, onDelete } = this.props;
+    const deleteIcon = task => (
+      <i
+        className="fa fa-trash fa-lg "
+        onClick={() => {
+          onDelete(task);
+        }}
+      />
+    );
     return (
       <ul>
         {tasks.reverse().map((task, index) => (
@@ -11,14 +19,7 @@ class Tasks extends Component {
             {!task.task ? (
               <React.Fragment>
                 <span className="empty">Empty task</span>
-                <div>
-                  <i
-                    className="fa fa-trash fa-lg "
-                    onClick={() => {
-                      onDelete(task);
-                    }}
-                  />
-                </div>
+                <div>{deleteIcon(task)}</div>
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -30,12 +31,7 @@ class Tasks extends Component {
                     }
                     onClick={() => onComplete(task)}
                   />
-                  <i
-                    className="fa fa-trash fa-lg "
-                    onClick={() => {
-                      onDelete(task);
-                    }}
-                  />
+                  {deleteIcon(task)}
                 </div>
               </React.Fragment>
             )}{" "}

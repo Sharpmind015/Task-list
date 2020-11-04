@@ -9,11 +9,11 @@ const STATUS = [
   },
   {
     name: "completed",
-    filtered: task => task.completed
+    filtered: task => task.completed && task.task
   },
   {
     name: "uncompleted",
-    filtered: task => !task.completed
+    filtered: task => !task.completed && task.task
   }
 ];
 
